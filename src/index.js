@@ -42,7 +42,6 @@ const Data = mongoose.model('Data', dataSchema);
 
 /** Google API */
 const { google } = require('googleapis');
-const key = require('../auth.json');
 
 const scopes = 'https://www.googleapis.com/auth/analytics.readonly';
 const jwt = new google.auth.JWT(
@@ -54,8 +53,6 @@ const jwt = new google.auth.JWT(
 const view_id = process.env.G_VIEW_ID;
 let finalResult = '';
 let totalRevDoD = 0;
-
-// process.env.GOOGLE_APPLICATION_CREDENTIALS = '../auth.json';
 refreshData();
 
 setInterval(() => {
