@@ -4,19 +4,20 @@
   "description": "Our hackathon project to make dashboards awesome",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "start:dev": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EverlyWell/hackathon-dashboards.git"
+    "url": "git+https://github.com/jameyel/hackathon-dashboards.git"
   },
   "author": "Jameyel Johnson",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/EverlyWell/hackathon-dashboards/issues"
+    "url": "https://github.com/jameyel/hackathon-dashboards/issues"
   },
-  "homepage": "https://github.com/EverlyWell/hackathon-dashboards#readme",
+  "homepage": "https://github.com/jameyel/hackathon-dashboards#readme",
   "dependencies": {
     "chart.js": "^2.7.3",
     "express": "^4.16.4",
