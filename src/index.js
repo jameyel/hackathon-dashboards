@@ -11,8 +11,10 @@ app.use(cors());
 /** Database */
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+const mongo_url =
+  process.env.MONGODB_URI || 'mongodb://localhost:27017/hackathon-dashboards';
 mongoose.connect(
-  'mongodb://localhost:27017/hackathon-dashboards',
+  mongo_url,
   { useNewUrlParser: true }
 );
 
