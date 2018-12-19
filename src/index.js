@@ -36,11 +36,11 @@ const jwt = new google.auth.JWT(
   key.private_key,
   scopes
 );
-const view_id = '111741807';
+const view_id = process.env.G_VIEW_ID;
 let finalResult = '';
 let totalRevDoD = 0;
 
-process.env.GOOGLE_APPLICATION_CREDENTIALS = '../auth.json';
+// process.env.GOOGLE_APPLICATION_CREDENTIALS = '../auth.json';
 refreshData();
 
 setInterval(() => {
