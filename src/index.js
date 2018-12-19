@@ -5,10 +5,16 @@ const express = require('express'),
   app = express(),
   port = process.env.PORT || 3000;
 
+const cors = require('cors');
+app.use(cors());
+
 /** Database */
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/hackathon-dashboards');
+mongoose.connect(
+  'mongodb://localhost:27017/hackathon-dashboards',
+  { useNewUrlParser: true }
+);
 
 const dataSchema = new mongoose.Schema({
   revenue: Number,
@@ -30,6 +36,7 @@ const jwt = new google.auth.JWT(
 );
 const view_id = '111741807';
 let finalResult = '';
+let totalRevDoD = 0;
 
 process.env.GOOGLE_APPLICATION_CREDENTIALS = '../auth.json';
 refreshData();
@@ -74,7 +81,7 @@ function refreshData() {
             return;
           }
           const revToday = result.data.rows[0][0];
-          const totalRevDoD = (revToday - revYday).toFixed(0);
+          totalRevDoD = (revToday - revYday).toFixed(0);
           const myData = new Data({
             revenue: totalRevDoD,
             timestamp: Date.now().toString()
@@ -89,10 +96,11 @@ function refreshData() {
             });
           if (totalRevDoD > 0) {
             // we made money
-            finalResult = 'and we made $' + totalRevDoD;
+            finalResult = 'and we made $' + totalRevDoD + ' more';
           } else if (totalRevDoD < 0) {
             // we lost money
-            finalResult = 'and we lost $' + Math.abs(Number(totalRevDoD));
+            finalResult =
+              'and we made $' + Math.abs(Number(totalRevDoD)) + ' less';
           }
         }
       );
@@ -110,8 +118,6 @@ client.get(
   'https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=0c2508bde7c64c88b6844bbd14568c24',
   function(data, response) {
     // parsed response body as js object
-    // console.log(response);
-
     news = data;
   }
 );
@@ -127,6 +133,11 @@ app.get('/us', function(req, res) {
   const headlineSplit = randomHeadline.split(' - ');
   const returnString = `Today ${headlineSplit[1]} reported ${
     headlineSplit[0]
-  }...${finalResult} since yesterday. I'm not saying theyre related, but we can't rule it out!`;
-  res.json(returnString);
+  }...${finalResult} than yesterday (so far today). I'm not saying theyre related, but we can't rule it out!`;
+  res.json({
+    headline: headlineSplit[0],
+    source: headlineSplit[1],
+    total_revenue: totalRevDoD,
+    message: returnString
+  });
 });
