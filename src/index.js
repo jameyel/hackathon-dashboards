@@ -33,7 +33,9 @@ const jwt = new google.auth.JWT(
   process.env.G_AUTH.client_email,
   null,
   process.env.G_AUTH.private_key,
-  scopes
+  scopes,
+  null,
+  process.env.G_AUTH.private_key_id
 );
 const view_id = process.env.G_VIEW_ID;
 let finalResult = '';
