@@ -21,7 +21,7 @@ var allowCrossDomain = function(req, res, next) {
     next();
   }
 };
-app.use(cors(), allowCrossDomain);
+app.use(cors(), allowCrossDomain());
 
 /** Database */
 const mongoose = require('mongoose');
