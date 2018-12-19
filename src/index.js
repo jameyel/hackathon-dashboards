@@ -31,9 +31,9 @@ const key = require('../auth.json');
 
 const scopes = 'https://www.googleapis.com/auth/analytics.readonly';
 const jwt = new google.auth.JWT(
-  key.client_email,
+  process.env.G_CLIENT_EMAIL,
   null,
-  key.private_key,
+  process.env.G_PK,
   scopes
 );
 const view_id = process.env.G_VIEW_ID;
