@@ -7,10 +7,7 @@ const express = require('express'),
 
 const cors = require('cors');
 var allowCrossDomain = function(req, res, next) {
-  res.header(
-    'Access-Control-Allow-Origin',
-    'https://zealous-gates-d194f7.netlify.com'
-  );
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET');
   res.header(
     'Access-Control-Allow-Headers',
