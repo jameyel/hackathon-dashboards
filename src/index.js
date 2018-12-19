@@ -30,9 +30,9 @@ const { google } = require('googleapis');
 
 const scopes = 'https://www.googleapis.com/auth/analytics.readonly';
 const jwt = new google.auth.JWT(
-  process.env.G_CLIENT_EMAIL,
+  process.env.GOOGLE_APPLICATION_CREDENTIALS.client_email,
   null,
-  process.env.G_PK,
+  process.env.GOOGLE_APPLICATION_CREDENTIALS.private_key,
   scopes
 );
 const view_id = process.env.G_VIEW_ID;
