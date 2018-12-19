@@ -4,6 +4,7 @@ const Client = require('node-rest-client').Client;
 const express = require('express'),
   app = express(),
   port = process.env.PORT || 3000;
+const key = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
 const cors = require('cors');
 app.use(cors());
@@ -30,9 +31,9 @@ const { google } = require('googleapis');
 
 const scopes = 'https://www.googleapis.com/auth/analytics.readonly';
 const jwt = new google.auth.JWT(
-  process.env.GOOGLE_APPLICATION_CREDENTIALS.client_email,
+  key.client_email,
   null,
-  process.env.GOOGLE_APPLICATION_CREDENTIALS.private_key,
+  key.private_key,
   scopes
 );
 const view_id = process.env.G_VIEW_ID;
